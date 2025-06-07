@@ -1,0 +1,38 @@
+{% extends 'pagina/base.html' %}
+
+{% block content %}
+<h1>Historial Médico de {{ mascota.nombre }}</h1>
+
+<div class="container">
+  {% if historiales %}
+    {% for historial in historiales %}
+      <div class="card text-center border-info mb-3">
+        <div class="card-body">
+          <h5 class="card-title">HISTORIAL NRO: {{ historial.id }}</h5>
+          <h5 class="card-title">FECHA: {{ historial.fecha }}</h5>
+          <h5 class="card-title">VACUNAS: {{ historial.vacuna }}</h5>
+          <h5 class="card-title">TRATAMIENTOS: {{ historial.tratamiento }}</h5>
+           {% if user.is_superuser %}
+              <a href="{% url 'editar_historial' historial.id %}" class="btn btn-primary">Editar Historial</a>
+              <a href="{% url 'eliminar_historial' historial.id %}" class="btn btn-danger mt-2"
+                onclick="return confirm('¿Estás seguro de eliminar este historial?')">
+                Eliminar Historial
+              </a>
+            {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-warning text-center">
+      Esta mascota no tiene historial médico registrado.
+    </div>
+  {% endif %}
+  {% if user.is_superuser %}
+    <div class="text-end mb-3">
+      <a href="{% url 'agregar_historial' mascota.id %}" class="btn btn-primary">
+        Agregar Historial Médico
+      </a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

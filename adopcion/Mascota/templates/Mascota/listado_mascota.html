@@ -11,7 +11,15 @@
              Estado: {{mascota.estado}}<br>
              Fecha_ingreso: {{mascota.fecha_ingreso}}<br>
         </li> 
-        <p></p>  
+        <p></p>
+        <a class="btn btn-primary" href="{% url 'mascota' mascota.id %}">Historial Medico</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'editar_mascota' mascota.id %}" class="btn btn-primary">Editar Mascota</a>
+            <a href="{% url 'eliminar_mascota' mascota.id %}" class="btn btn-danger"
+            onclick="return confirm('¿Estás seguro de eliminar esta mascota?')">
+            Eliminar Mascota
+            </a>
+        {% endif %}
     {% endfor %}
     </ul>
     {% if user.is_superuser %}
