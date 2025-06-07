@@ -1,0 +1,21 @@
+{% extends "pagina/base.html" %}
+
+{% block content %}
+<h1>Lista de Mascotas</h1>
+
+    <ul>
+    {% for mascota in mascotas %}
+        <li> Nombre: {{ mascota.nombre}}<br>
+             Especie: {{mascota.especie}}<br>
+             Edad: {{mascota.edad}}<br>
+             Estado: {{mascota.estado}}<br>
+             Fecha_ingreso: {{mascota.fecha_ingreso}}<br>
+        </li> 
+        <p></p>  
+    {% endfor %}
+    </ul>
+    {% if user.is_superuser %}
+    <a class="btn btn-primary" href="{% url 'agregar_mascota' %}">Agregar Mascota</a>
+    {% endif %}    
+
+{% endblock  %}
