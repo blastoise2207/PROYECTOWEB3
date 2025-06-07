@@ -1,0 +1,27 @@
+{% extends 'pagina/base.html' %}
+
+{% block content %}
+<h1>Bienvenido a la página de adopción</h1>
+{% if user.is_authenticated %}
+    <h1 class="text">Mascotas</h1>
+        <div class="container">
+            <div class="row">
+                {% for item in mis_mascotas %}
+                <div class="col-6 col-sm-4 col-md-3">
+                    <div class="card text-center border-info">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">NOMBRE: {{item.nombre}}</h5>
+                                <p class="card-text">ESPECIE: {{item.especie}}</p>
+                                <p class="card-text">EDAD: {{item.edad}}</p>
+                                <p class="card-text">ESTADO: {{item.estado}}</p>
+                                <a href="{% url 'mascota' item.id %}" class="btn btn-primary">HISTORIAL MEDICO</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
