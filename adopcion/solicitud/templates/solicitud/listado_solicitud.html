@@ -1,0 +1,31 @@
+{% extends "pagina/base.html" %}
+
+{% block content %}
+<h1>Solicitudes Pendientes</h1>
+{% if solicitud %}
+    <ul>
+    {% for solicitudes in solicitud %}
+        <li> ID: {{ solicitudes.id}}<br>
+            {% if user.is_superuser %}
+                USUARIO: {{solicitudes.usuario.user.first_name}} {{solicitudes.usuario.user.last_name}} <br>
+            {% endif %}
+             Fecha: {{solicitudes.fecha}}<br>
+             Estado: {{solicitudes.estado}}<br>
+             Mascota: {{solicitudes.mascota.nombre}}<br>
+        </li> 
+        <p></p>
+        {% if solicitudes.id %}
+            <a href="{% url 'eliminar_solicitud' solicitudes.id %}" class="btn btn-danger"
+            onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')">
+            Eliminar Solicitud
+            </a>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+<div class="alert alert-warning text-center">
+      No realizo ninguna solicitud de adopcion.
+    </div>
+{% endif %}
+    
+{% endblock  %}

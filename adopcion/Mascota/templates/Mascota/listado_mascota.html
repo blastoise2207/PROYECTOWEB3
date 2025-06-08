@@ -12,6 +12,7 @@
              Fecha_ingreso: {{mascota.fecha_ingreso}}<br>
         </li> 
         <p></p>
+        <a href="{% url 'solicitar_adopcion' mascota.id %}">Solicitar Adopción</a>
         <a class="btn btn-primary" href="{% url 'mascota' mascota.id %}">Historial Medico</a>
         {% if user.is_superuser %}
             <a href="{% url 'editar_mascota' mascota.id %}" class="btn btn-primary">Editar Mascota</a>

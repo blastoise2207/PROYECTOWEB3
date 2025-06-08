@@ -7,15 +7,26 @@
 <body>
     <nav>
       <div style="float:left;">
+        <a href="{% url 'inicio' %}">Inicio</a> |
         <a href="{% url 'listado_mascota' %}">Mascotas</a> |
-      </div>
-            {% if user.is_authenticated %}
+      </div>| 
+      {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <div style="float:left;">
+              <a href="{% url 'listado_solicitud2' %}">Solicitudes</a>
+            </div>
+        {% else %}
+            <div style="float:left;">
+              <a href="{% url 'listado_solicitud' %}">Solicitudes</a>
+            </div>
+        {% endif %}
         <div style="float:right;">
           <a>Bienvenido {{ user.first_name }} {{ user.last_name }}</a> |
+          <a href="{% url 'ver_perfil' %}">Ver Perfil</a>
           <a href="{% url 'logout' %}">Cerrar sesión</a>
         </div>
       {% else %}
-        <div style="float:left;">
+        <div style="float:right;">
           <a href="{% url 'login' %}">Iniciar sesión</a> |
           <a href="{% url 'registro' %}">Registrarse</a>
         </div>
@@ -23,6 +34,13 @@
     </nav>
 
     <hr>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {% block content %}
     {% endblock %}
 </body>

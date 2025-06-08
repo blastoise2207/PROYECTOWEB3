@@ -1,0 +1,39 @@
+{% extends "pagina/base.html" %}
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="card shadow-sm border-success">
+        <div class="card-header bg-success text-white">
+            <h3><i class="fas fa-check-circle me-2"></i>Solicitud Enviada con Éxito</h3>
+        </div>
+        
+        <div class="card-body">
+            <i class="fas fa-paw fa-4x text-success mb-3"></i>
+            <h4>¡Gracias por tu solicitud de adopción!</h4>
+            
+            <div class="alert alert-info mt-3">
+                <p><strong>Mascota:</strong> {{ solicitud.mascota.nombre }}</p>
+                <p><strong>Estado:</strong> <span class="badge bg-warning">{{ solicitud.get_estado_display }}</span></p>
+            </div>
+            
+            <p class="mt-3">Revisaremos tu solicitud para {{ solicitud.mascota.nombre }} y te contactaremos pronto.</p>
+            
+            <a href="{% url 'listado_mascota' %}" class="btn btn-primary mt-3">
+                <i class="fas fa-paw me-1"></i> Ver más mascotas
+            </a>
+            {% if user.is_superuser %}
+                <a href="{% url 'listado_solicitud2' %}" class="btn btn-primary mt-3">
+                    <i class="fas fa-paw me-1"></i> Ver Solicitudes
+                </a>
+            {% else %}
+                <a href="{% url 'listado_solicitud' %}" class="btn btn-primary mt-3">
+                    <i class="fas fa-paw me-1"></i> Ver Solicitudes
+                </a>
+            {% endif %}
+        </div>
+        
+        <div class="card-footer text-muted small">
+            <i class="fas fa-info-circle me-1"></i> Recibirás confirmación por correo con los detalles.
+        </div>
+    </div>
+</div>
+{% endblock %}

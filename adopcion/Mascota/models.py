@@ -1,15 +1,22 @@
 from django.db import models
 
 class Mascota(models.Model):
+    ESTADO_CHOICES = [
+        ('adopcion', 'Adopción'),
+        ('adoptado', 'Adoptado'),
+    ]
     id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=100)
     especie = models.CharField(max_length=50)
     edad = models.CharField(max_length=100)
-    estado = models.CharField(max_length=100)
+    estado = models.CharField(max_length=10,
+        choices=ESTADO_CHOICES,
+        default='adopcion')
     fecha_ingreso = models.DateTimeField(auto_now_add=True)      
 
     def __str__(self):
-        return ({self.nombre},{self.especie},{self.edad},{self.estado},{self.fecha_ingreso})
+        return f"{self.nombre} - {self.especie}"
+
 
 class Historial_medico(models.Model):
     id = models.IntegerField(primary_key=True)

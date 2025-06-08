@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Perfil1
 
 class RegistroForm(forms.ModelForm):
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
@@ -30,3 +31,30 @@ class RegistroForm(forms.ModelForm):
 class LoginForm(forms.Form):
     email = forms.EmailField(label="Correo electrónico")
     password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+
+
+class ActualizarPerfilForm(forms.ModelForm):
+    first_name = forms.CharField(label='Nombre', max_length=150)
+    last_name = forms.CharField(label='Apellido', max_length=150)
+    email = forms.EmailField(label='Correo')
+    nueva_contraseña = forms.CharField(label='Nueva contraseña', widget=forms.PasswordInput, required=False)
+
+    class Meta:
+        model = Perfil1
+        fields = ['ci', 'telefono']
+
+    def save(self, user, commit=True):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+
+        nueva_contraseña = self.cleaned_data.get('nueva_contraseña')
+        if nueva_contraseña:
+            user.set_password(nueva_contraseña)
+
+        if commit:
+            user.save()
+            perfil = super().save(commit=False)
+            perfil.user = user
+            perfil.save()
+        return user

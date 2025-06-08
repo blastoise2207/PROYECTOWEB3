@@ -1,0 +1,14 @@
+{% extends 'pagina/base.html' %} {# Asumiendo que tienes una plantilla base #}
+
+{% block content %}
+<h2>Solicitar Adopción para {{ mascota.nombre }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar Solicitud</button>
+</form>
+
+<p><a href="{% url 'listado_mascota' %}">Volver al listado de mascotas</a></p> {# Ajusta la URL si es necesario #}
+
+{% endblock %}

@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistroForm, LoginForm
+from .forms import RegistroForm, LoginForm, ActualizarPerfilForm
 from .models import Perfil1
+from django.contrib import messages
 
 def inicio(request):
     return render(request, 'pagina/inicio.html')
@@ -59,3 +60,45 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('inicio')
+
+def is_superuser(user):
+    return user.is_superuser
+
+
+def actualizar_datos(request):
+    perfil, creado = Perfil1.objects.get_or_create(user=request.user, defaults={
+        'ci': '',
+        'telefono': '',
+    })
+    if request.method == 'POST':
+        form = ActualizarPerfilForm(request.POST, instance=perfil)
+        if form.is_valid():
+            form.save(user=request.user)
+            return redirect('login')
+    else:
+        form = ActualizarPerfilForm(instance=perfil, initial={
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+        })
+
+    return render(request, 'pagina/actualizar_perfil.html', {'form': form})
+def ver_perfil(request):
+    perfil, created = Perfil1.objects.get_or_create(user=request.user)
+    
+    return render(request, 'pagina/ver_perfil.html', {
+        'usuario': request.user,
+        'perfil': perfil,
+    })
+
+def eliminar_cuenta(request, usuario_id):
+    perfil = get_object_or_404(Perfil1, pk=usuario_id)
+    user = perfil.user
+    perfil.delete()
+    user.delete()
+
+    messages.success(request, "Tu cuenta ha sido eliminada exitosamente.")
+    return redirect('inicio')
+
+def confirmar_eliminar_cuenta(request):
+    return render(request, 'pagina/confirmar_eliminar_cuenta.html')

@@ -48,7 +48,7 @@ def eliminar_historial(request, historial_id):
     historial.delete()
     return redirect('mascota', mascota_id=mascota_id)
 
-# Eliminar mascota
+
 def eliminar_mascota(request, mascota_id):
     mascota = get_object_or_404(Mascota, pk=mascota_id)
     mascota.delete()

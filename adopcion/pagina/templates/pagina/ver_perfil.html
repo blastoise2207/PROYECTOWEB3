@@ -1,0 +1,11 @@
+{% extends "pagina/base.html" %}
+
+{% block content %}
+<h2>Datos del usuario</h2>
+<p><strong>Nombre:</strong> {{ usuario.first_name }} {{ usuario.last_name }}</p>
+<p><strong>Email:</strong> {{ usuario.email }}</p>
+<p><strong>CI:</strong> {{ perfil.ci }}</p>
+<p><strong>Teléfono:</strong> {{ perfil.telefono }}</p>
+<a href="{% url 'actualizar_perfil_superusuario' %}">Actualizar Datos</a>
+<a href="{% url 'confirmar_eliminar_cuenta' %}">Eliminar cuenta</a>
+{% endblock content %}
