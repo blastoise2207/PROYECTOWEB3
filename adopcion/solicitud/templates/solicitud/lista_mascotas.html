@@ -1,8 +1,0 @@
-<h1>Mascotas Disponibles</h1>
-{% for mascota in mascotas %}
-    <div>
-        <h3>{{ mascota.nombre }}</h3>
-        <p>Especie: {{ mascota.especie }}</p>
-        <a href="{% url 'solicitar_adopcion' mascota.id %}">Solicitar Adopción</a>
-    </div>
-{% endfor %}
