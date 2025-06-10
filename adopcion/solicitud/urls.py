@@ -6,4 +6,5 @@ urlpatterns = [
     path('listado_soicitud/', views.listado_solicitud, name='listado_solicitud'),
     path('listado_soicitud2/', views.listado_solicitud2, name='listado_solicitud2'),
     path('solicitud/<int:solicitud_id>/eliminar/', views.eliminar_solicitud, name='eliminar_solicitud'),
+    path('solicitud/<int:solicitud_id>/eliminar2/', views.eliminar_solicitud2, name='eliminar_solicitud2'),
 ]

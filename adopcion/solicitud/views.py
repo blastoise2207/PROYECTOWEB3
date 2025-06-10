@@ -28,7 +28,7 @@ def solicitar_adopcion(request, mascota_id):
     else:
         form = SolicitudAdopcionForm()
 
-    return render(request, 'solicitud/form_solicitud.html', {'form': form})
+    return render(request, 'solicitud/form_solicitud.html', {'form': form , 'mascota': mascota})
   
 def confirmacion_solicitud(request, solicitud_id):
     solicitud = get_object_or_404(Solicitud, id=solicitud_id)
@@ -52,5 +52,13 @@ def eliminar_solicitud(request, solicitud_id):
     if solicitud.usuario != perfil and not request.user.is_superuser:
         return HttpResponseForbidden("No tenés permiso para eliminar esta solicitud.")
     solicitud.delete()
-    return redirect('listado_solicitud2')
+    return redirect('listado_solicitud')
 
+def eliminar_solicitud2(request, solicitud_id):
+    solicitud = get_object_or_404(Solicitud, pk=solicitud_id)
+    perfil = Perfil1.objects.get(user=request.user)
+
+    if solicitud.usuario != perfil and not request.user.is_superuser:
+        return HttpResponseForbidden("No tenés permiso para eliminar esta solicitud.")
+    solicitud.delete()
+    return redirect('listado_solicitud2')

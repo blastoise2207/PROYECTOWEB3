@@ -15,10 +15,17 @@
         </li> 
         <p></p>
         {% if solicitudes.id %}
+            {% if user.is_superuser %}
+            <a href="{% url 'eliminar_solicitud2' solicitudes.id %}" class="btn btn-danger"
+            onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')">
+            Eliminar Solicitud
+            </a>
+            {% else %}
             <a href="{% url 'eliminar_solicitud' solicitudes.id %}" class="btn btn-danger"
             onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')">
             Eliminar Solicitud
             </a>
+            {% endif %}
         {% endif %}
     {% endfor %}
     </ul>
