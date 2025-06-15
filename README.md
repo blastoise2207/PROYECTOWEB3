@@ -2,9 +2,9 @@
 
 GRUPO 21  TEMA 7
 
-ESTUDIANTES:
+ESTUDIANTES:<br>
               3    Alejo Pari Aidee Magi<br>
-              8    Angulo Balboa Brian
-              29   Calle Nina Pedro Enrrique
-              128  Marca Vargas Ariel Rodrigo
+              8    Angulo Balboa Brian<br>
+              29   Calle Nina Pedro Enrrique<br>
+              128  Marca Vargas Ariel Rodrigo<br>
               155  Quispe Cerezo Nelson Elias
