@@ -1,38 +1,47 @@
 {% extends "pagina/base.html" %}
 
 {% block content %}
-<h1>Solicitudes Pendientes</h1>
+<h1 style="text-align: center; color: #4CAF50; margin-top: 20px;">Solicitudes Pendientes</h1>
+
 {% if solicitud %}
-    <ul>
-    {% for solicitudes in solicitud %}
-        <li> ID: {{ solicitudes.id}}<br>
-            {% if user.is_superuser %}
-                USUARIO: {{solicitudes.usuario.user.first_name}} {{solicitudes.usuario.user.last_name}} <br>
-            {% endif %}
-             Fecha: {{solicitudes.fecha}}<br>
-             Estado: {{solicitudes.estado}}<br>
-             Mascota: {{solicitudes.mascota.nombre}}<br>
-        </li> 
-        <p></p>
-        {% if solicitudes.id %}
-            {% if user.is_superuser %}
-            <a href="{% url 'eliminar_solicitud2' solicitudes.id %}" class="btn btn-danger"
-            onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')">
-            Eliminar Solicitud
-            </a>
-            {% else %}
-            <a href="{% url 'eliminar_solicitud' solicitudes.id %}" class="btn btn-danger"
-            onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')">
-            Eliminar Solicitud
-            </a>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-    </ul>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+        {% for solicitudes in solicitud %}
+            <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; width: 350px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                
+                <p><strong>ID:</strong> {{ solicitudes.id }}</p>
+
+                {% if user.is_superuser %}
+                    <p><strong>Usuario:</strong> {{ solicitudes.usuario.user.first_name }} {{ solicitudes.usuario.user.last_name }}</p>
+                {% endif %}
+                
+                <p><strong>Fecha:</strong> {{ solicitudes.fecha }}</p>
+                <p><strong>Estado:</strong> {{ solicitudes.estado }}</p>
+                <p><strong>Mascota:</strong> {{ solicitudes.mascota.nombre }}</p>
+
+                <div style="margin-top: 15px;">
+                    {% if solicitudes.id %}
+                        {% if user.is_superuser %}
+                            <a href="{% url 'eliminar_solicitud2' solicitudes.id %}" 
+                               onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')"
+                               style="padding: 10px 20px; background-color: #F44336; color: white; text-decoration: none; border-radius: 5px;">
+                               Eliminar Solicitud
+                            </a>
+                        {% else %}
+                            <a href="{% url 'eliminar_solicitud' solicitudes.id %}" 
+                               onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')"
+                               style="padding: 10px 20px; background-color: #F44336; color: white; text-decoration: none; border-radius: 5px;">
+                               Eliminar Solicitud
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
 {% else %}
-<div class="alert alert-warning text-center">
-      No realizo ninguna solicitud de adopcion.
+    <div style="max-width: 500px; margin: 50px auto; padding: 20px; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 10px; text-align: center;">
+        No realizaste ninguna solicitud de adopción.
     </div>
 {% endif %}
-    
-{% endblock  %}
+{% endblock %}

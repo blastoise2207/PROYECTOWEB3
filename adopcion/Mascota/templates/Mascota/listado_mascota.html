@@ -1,30 +1,37 @@
 {% extends "pagina/base.html" %}
 
 {% block content %}
-<h1>Lista de Mascotas</h1>
+    <h1 style="text-align: center; color: #4CAF50; margin-top: 20px;">Lista de Mascotas</h1>
 
-    <ul>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
     {% for mascota in mascotas %}
-        <li> Nombre: {{ mascota.nombre}}<br>
-             Especie: {{mascota.especie}}<br>
-             Edad: {{mascota.edad}}<br>
-             Estado: {{mascota.estado}}<br>
-             Fecha_ingreso: {{mascota.fecha_ingreso}}<br>
-        </li> 
-        <p></p>
-        <a href="{% url 'solicitar_adopcion' mascota.id %}">Solicitar Adopción</a>
-        <a class="btn btn-primary" href="{% url 'mascota' mascota.id %}">Historial Medico</a>
-        {% if user.is_superuser %}
-            <a href="{% url 'editar_mascota' mascota.id %}" class="btn btn-primary">Editar Mascota</a>
-            <a href="{% url 'eliminar_mascota' mascota.id %}" class="btn btn-danger"
-            onclick="return confirm('¿Estás seguro de eliminar esta mascota?')">
-            Eliminar Mascota
-            </a>
-        {% endif %}
-    {% endfor %}
-    </ul>
-    {% if user.is_superuser %}
-    <a class="btn btn-primary" href="{% url 'agregar_mascota' %}">Agregar Mascota</a>
-    {% endif %}    
+        <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; width: 300px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <p><strong>Nombre:</strong> {{ mascota.nombre }}</p>
+            <p><strong>Especie:</strong> {{ mascota.especie }}</p>
+            <p><strong>Edad:</strong> {{ mascota.edad }}</p>
+            <p><strong>Estado:</strong> {{ mascota.estado }}</p>
+            <p><strong>Fecha de ingreso:</strong> {{ mascota.fecha_ingreso }}</p>
 
-{% endblock  %}
+            <div style="margin-top: 10px;">
+                <a href="{% url 'solicitar_adopcion' mascota.id %}" style="display: inline-block; padding: 8px 12px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; margin-right: 5px;">Solicitar Adopción</a>
+                <a href="{% url 'mascota' mascota.id %}" style="display: inline-block; padding: 8px 12px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">Historial Médico</a>
+            </div>
+
+            {% if user.is_superuser %}
+            <div style="margin-top: 10px;">
+                <a href="{% url 'editar_mascota' mascota.id %}" style="display: inline-block; padding: 8px 12px; background-color: #FFA500; color: white; text-decoration: none; border-radius: 5px; margin-right: 5px;">Editar Mascota</a>
+                <a href="{% url 'eliminar_mascota' mascota.id %}" 
+                   onclick="return confirm('¿Estás seguro de eliminar esta mascota?')"
+                   style="display: inline-block; padding: 8px 12px; background-color: #F44336; color: white; text-decoration: none; border-radius: 5px;">Eliminar Mascota</a>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+
+    {% if user.is_superuser %}
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="{% url 'agregar_mascota' %}" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Agregar Mascota</a>
+    </div>
+    {% endif %}
+{% endblock %}

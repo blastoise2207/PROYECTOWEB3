@@ -2,33 +2,33 @@
 
 {% block content %}
 
-<h1>FORMULARIO</h1>
-<div class="container mt-5">
-    <h2 class="mb-4">Solicitud de Adopción para {{ mascota.nombre }}</h2>
-    
-    <div class="card">
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                
-                <div class="mb-3">
-                    <label class="form-label">Mascota:</label>
-                    <input type="text" class="form-control" value="{{ mascota.nombre }} ({{ mascota.especie }})" disabled>
-                </div>
-                
-                {{ form.as_p }}
-                
-                <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" required id="terminos">
-                    <label class="form-check-label" for="terminos">
-                        Confirmo que puedo proporcionar un hogar adecuado
-                    </label>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
-                <a href="{% url 'listado_mascota' %}" class="btn btn-secondary">Cancelar</a>
-            </form>
+<h1 style="text-align: center; color: #4CAF50; margin-top: 20px;">Formulario de Adopción</h1>
+
+<div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
+    <h2 style="margin-bottom: 20px; text-align: center;">Solicitud de Adopción para {{ mascota.nombre }}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold;">Mascota:</label>
+            <input type="text" value="{{ mascota.nombre }} ({{ mascota.especie }})" disabled style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         </div>
-    </div>
+        
+        <div style="margin-bottom: 15px;">
+            {{ form.as_p }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <input type="checkbox" id="terminos" required>
+            <label for="terminos"> Confirmo que puedo proporcionar un hogar adecuado</label>
+        </div>
+
+        <div style="text-align: center;">
+            <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Enviar Solicitud</button>
+            <a href="{% url 'listado_mascota' %}" style="padding: 10px 20px; background-color: #aaa; color: white; text-decoration: none; border-radius: 5px; margin-left: 10px;">Cancelar</a>
+        </div>
+    </form>
 </div>
+
 {% endblock %}

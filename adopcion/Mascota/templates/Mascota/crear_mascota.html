@@ -1,13 +1,22 @@
 {% extends "pagina/base.html" %}
 
 {% block content %}
+  <h1 style="text-align: center; color: #4CAF50; margin-top: 20px;">Agregar Mascota</h1>
 
-<h1>Agregar Mascota</h1>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Guardar</button>
-</form>
+  <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
+    <form method="POST">
+      {% csrf_token %}
 
-{% endblock  %}
+      <div style="margin-bottom: 15px;">
+        {{ form.as_p }}
+      </div>
 
+      <div style="text-align: center;">
+        <button type="submit" 
+                style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

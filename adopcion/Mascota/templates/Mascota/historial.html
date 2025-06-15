@@ -1,38 +1,49 @@
 {% extends 'pagina/base.html' %}
 
 {% block content %}
-<h1>Historial Médico de {{ mascota.nombre }}</h1>
+<h1 style="text-align: center; color: #4CAF50; margin-top: 20px;">Historial Médico de {{ mascota.nombre }}</h1>
 
-<div class="container">
+<div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+
   {% if historiales %}
-    {% for historial in historiales %}
-      <div class="card text-center border-info mb-3">
-        <div class="card-body">
-          <h5 class="card-title">HISTORIAL NRO: {{ historial.id }}</h5>
-          <h5 class="card-title">FECHA: {{ historial.fecha }}</h5>
-          <h5 class="card-title">VACUNAS: {{ historial.vacuna }}</h5>
-          <h5 class="card-title">TRATAMIENTOS: {{ historial.tratamiento }}</h5>
-           {% if user.is_superuser %}
-              <a href="{% url 'editar_historial' historial.id %}" class="btn btn-primary">Editar Historial</a>
-              <a href="{% url 'eliminar_historial' historial.id %}" class="btn btn-danger mt-2"
-                onclick="return confirm('¿Estás seguro de eliminar este historial?')">
-                Eliminar Historial
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+      {% for historial in historiales %}
+        <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; width: 300px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+          <h3 style="color: #2196F3;">Historial N° {{ historial.id }}</h3>
+          <p><strong>Fecha:</strong> {{ historial.fecha }}</p>
+          <p><strong>Vacunas:</strong> {{ historial.vacuna }}</p>
+          <p><strong>Tratamientos:</strong> {{ historial.tratamiento }}</p>
+
+          {% if user.is_superuser %}
+            <div style="margin-top: 10px;">
+              <a href="{% url 'editar_historial' historial.id %}" 
+                 style="padding: 8px 12px; background-color: #FFA500; color: white; text-decoration: none; border-radius: 5px; margin-right: 5px;">
+                 Editar
               </a>
-            {% endif %}
+              <a href="{% url 'eliminar_historial' historial.id %}" 
+                 onclick="return confirm('¿Estás seguro de eliminar este historial?')"
+                 style="padding: 8px 12px; background-color: #F44336; color: white; text-decoration: none; border-radius: 5px;">
+                 Eliminar
+              </a>
+            </div>
+          {% endif %}
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   {% else %}
-    <div class="alert alert-warning text-center">
+    <div style="max-width: 500px; margin: 50px auto; padding: 20px; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 10px; text-align: center;">
       Esta mascota no tiene historial médico registrado.
     </div>
   {% endif %}
+
   {% if user.is_superuser %}
-    <div class="text-end mb-3">
-      <a href="{% url 'agregar_historial' mascota.id %}" class="btn btn-primary">
-        Agregar Historial Médico
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="{% url 'agregar_historial' mascota.id %}" 
+         style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+         Agregar Historial Médico
       </a>
     </div>
   {% endif %}
+
 </div>
 {% endblock %}

@@ -1,11 +1,25 @@
 {% extends "pagina/base.html" %}
 
 {% block content %}
-<h2>Datos del usuario</h2>
-<p><strong>Nombre:</strong> {{ usuario.first_name }} {{ usuario.last_name }}</p>
-<p><strong>Email:</strong> {{ usuario.email }}</p>
-<p><strong>CI:</strong> {{ perfil.ci }}</p>
-<p><strong>Teléfono:</strong> {{ perfil.telefono }}</p>
-<a href="{% url 'actualizar_perfil_superusuario' %}">Actualizar Datos</a>
-<a href="{% url 'confirmar_eliminar_cuenta' %}">Eliminar cuenta</a>
+  <h2 style="text-align: center; color: #4CAF50; margin-top: 20px;">Datos del usuario</h2>
+
+  <div style="max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
+
+    <p><strong>Nombre:</strong> {{ usuario.first_name }} {{ usuario.last_name }}</p>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p><strong>CI:</strong> {{ perfil.ci }}</p>
+    <p><strong>Teléfono:</strong> {{ perfil.telefono }}</p>
+
+    <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center;">
+      <a href="{% url 'actualizar_perfil_superusuario' %}" 
+         style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+         Actualizar Datos
+      </a>
+      <a href="{% url 'confirmar_eliminar_cuenta' %}" 
+         style="padding: 10px 20px; background-color: #d9534f; color: white; text-decoration: none; border-radius: 5px;">
+         Eliminar cuenta
+      </a>
+    </div>
+
+  </div>
 {% endblock content %}

@@ -1,11 +1,22 @@
 {% extends "pagina/base.html" %}
+
 {% block content %}
-<h2>¿Estás seguro de que deseas eliminar tu cuenta?</h2>
+  <h2 style="text-align: center; color: #d9534f; margin-top: 30px;">
+    ¿Estás seguro de que deseas eliminar tu cuenta?
+  </h2>
 
-<form method="post" action="{% url 'eliminar_cuenta' request.user.perfil1.id %}">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Sí, eliminar cuenta</button>
-  <a href="{% url 'inicio' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+  <form method="post" action="{% url 'eliminar_cuenta' request.user.perfil1.id %}" 
+        style="max-width: 400px; margin: 30px auto; text-align: center;">
+    {% csrf_token %}
 
-{% endblock content %}
+    <button type="submit" 
+            style="padding: 10px 20px; background-color: #d9534f; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 15px;">
+      Sí, eliminar cuenta
+    </button>
+
+    <a href="{% url 'inicio' %}" 
+       style="padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px;">
+      Cancelar
+    </a>
+  </form>
+{% endblock %}
